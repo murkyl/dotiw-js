@@ -1,0 +1,368 @@
+dotiw-js
+========
+This javascript code attempts to mirror the functionality available in both
+Rails 
+[distance_of_time_in_words](http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-distance_of_time_in_words) 
+and the dotiw Gem written by Ryan Bigg.
+Most of the options and syntax from the Rails functions are closely mirrored
+here.  Definitely take a look at the [dotiw Gem documentation](https://github.com/radar/dotiw)
+for additional clarification.
+
+__Example__:
+    t = new Date()
+    DOTIW.distance_of_time_in_words(t, t + 60)             // 1 minute
+    DOTIW.distance_of_time_in_words(t, t + 3600)           // 1 hour
+    DOTIW.distance_of_time_in_words(t, t + 3820)           // 1 hour and 3 minutes
+    DOTIW.distance_of_time_in_words(t, t + 98900)          // 1 day, 3 hours, and 28 minutes
+
+
+
+Functions
+------------
+###distance_of_time_in_words
+    distance_of_time_in_words(start_time, end_time, show_seconds, options)
+*Description*
+
+This function can be used to convert a time difference between start_time and
+end_time into a string representation that is much more human friendly than
+just providing the raw difference in seconds through a subtraction.
+  
+
+*Arguments*
+
+_start_time_: Javascript Date object or an integer representing seconds
+
+_end_time_: Javascript Date object or an integer representing seconds
+
+_show_seconds_: Boolean value.  Defaults to false.  When set to true the
+function will return the time string including seconds.
+
+_options_: Hash that contains various options that alter how the time string
+is returned.  Please see the options section below for details on all the
+options and their behaviors.
+
+_Notes_: You can pass in the options hash as the third parameter and omit
+the show_seconds parameters altogether.
+  
+
+*Return values*
+
+String with the time value
+
+
+__Example__
+    var now = new Date();
+    var time = DOTIW.distance_of_time_in_words_hash(now, now + 834500);
+    
+    // Time would be: "9 days, 15 hours, and 48 minutes"
+
+
+
+###distance_of_time_in_words_hash
+    distance_of_time_in_words_hash(start_time, end_time, show_seconds, options)
+*Description*
+
+Similar to the distance_of_time_in_words function except that the output can
+be used to output the time difference in any manner you prefer.  The hash keys
+will be from the set: seconds, minutes, hours, days, months and years.
+  
+
+*Arguments*
+
+The arguments for this function are identical to distance_of_time_in_words.
+  
+
+*Return values*
+
+A hash of each of the time components.
+
+
+__Example__
+    var now = new Date();
+    var hash_time = DOTIW.distance_of_time_in_words_hash(now, now + 3960);
+    hash_time.hours;            // Returns 1
+    hash_time['hours'];         // Returns 1
+    hash_time.minutes;          // Returns 6
+    hash_time.days;             // Returns undefined
+
+
+
+###distance_of_time
+    distance_of_time(seconds, options)
+*Description*
+
+This function takes an integer number of seconds and converts it into a nice
+string.
+  
+
+*Arguments*
+
+_seconds_: Integer value representing the number of seconds.
+
+_options_: Hash that contains various options that alter how the time string
+is returned.  Please see the options section below for details on all the
+options and their behaviors.
+  
+
+*Return values*
+
+String with the time value
+
+
+__Example__
+    var time = DOTIW.distance_of_time(3840)
+    
+    // Time would be "1 hour and 4 minutes"
+
+
+###distance_of_time_in_percent
+    distance_of_time_in_percent(start_time, current_time, end_time, options)
+*Description*
+
+Currently not implemented
+  
+
+*Arguments*
+
+_start_time_: Javascript Date object or an integer representing seconds
+
+_current_time_: Javascript Date object or an integer representing seconds
+
+_end_time_: Javascript Date object or an integer representing seconds
+
+_show_seconds_: Boolean value.  Defaults to false.  When set to true the
+function will return the time string including seconds.
+
+_options_: Hash that contains various options that alter how the time string
+is returned.  Please see the options section below for details on all the
+options and their behaviors.
+  
+
+*Return values*
+
+String with the percent value
+
+
+
+###load_locale
+    load_locale(locale_string, translation)
+*Description*
+
+You can use this function to pre-load locale definitions.
+  
+
+*Arguments*
+
+_locale_string_: A text string representing a locale.  e.g. 'en-GB', 'zh-CN'
+
+_translation_: This parameter must be a hash.  There are 2 types of hashes
+that are acceptable.  The first one is a hash with keys that are similar
+to a [Rails I18N Yaml files](https://github.com/svenfuchs/rails-i18n).
+There are some changes for simplicity.  The second type of hash is one where
+the key is a text string which is the same as the locale_string parameter and
+the value is a hash which is the same as the first type of hash.  An example
+of this hash is the built in 'en-US' locale built into the code.  More details
+on how the hash is setup is in the locale section below.
+  
+
+*Return values*
+
+None.
+
+
+
+Main options
+------------
+###locale
+_Type_: String
+
+_Default_: 'en-US'
+
+Set this to a text string which represents a locale that has been entered via
+the load_locale method or directly send in a hash of the locale as described
+in the localization section.
+
+
+###vague
+_Type_: Boolean
+
+_Default_: false
+
+Set this to true if you want traditional Rails vague times like about 1 hour.
+
+Currently not implemented.
+
+
+###accumulate_on
+_Type_: Boolean
+
+_Default_: false
+
+Specifies the largest time bucket that will be output.  This option allows you
+to have an output like hours be greater than the normal range of 0-23.
+
+Currently not implemented.
+
+
+###only
+_Type_: String or Array
+
+_Default_: null
+
+When set, to a strings or array of string, this option will filter the output
+such that only the time buckets set will be output.
+
+
+###except
+_Type_: String or Array
+
+_Default_: null
+
+When set, to a strings or array of string, this option will filter the output
+such that only the time buckets set will not be output.
+
+
+###words_connector
+_Type_: String
+
+_Default_: ', '
+
+String used to connect 3 or more time buckets together.
+
+
+###two_words_connector
+_Type_: String
+
+_Default_: ' and '
+
+String used to connect the words when only 2 time buckets will be output.
+
+
+###last_word_connector
+_Type_: String
+
+_Default_: ', and '
+
+String used to connect the last bucket when you have 3 or more buckets
+together.
+
+
+###highest_measure_only
+_Type_: Boolean
+
+_Default_: false
+
+When set to true, only the largest time bucket will be output.
+
+
+
+Localization
+------------
+The localization file is modeled after the Rails I18n localization files.
+Most of the hash is exactly the same as the Rails Yaml except for the last
+3 keys which are used to connect words together.  The keys are
+'words_connector', 'two_words_connector' and 'last_word_connector'.  These
+would normally occur under the 'support' key but they have been moved for
+convenience.  By default, only the 'one' and 'other' keys are used for
+generating the time strings.  The 'zero' string is not used since zero values
+are not output.
+
+If you have need for customized pluralizations you can add a key with the
+value 'pluralization' and associate it with an anonymous function which takes
+an integer input and returns a string key value which will be used to map that
+particular value.  This pluralization function can appear at the base of the
+hash or inside any of the subsections.  When it appears at the base it wil be
+used for all the subsections.  If it appears in a subsection it will work only
+in that subsection and it will also override any global value.
+
+__Example__
+
+
+    {
+      pluralization: function(num) {
+        switch (num) {
+        case 1:
+          return 'one';
+          break;
+        case 2:
+          return 'two';
+          break;
+        }
+        if (num < 5) {
+          return 'few';
+        }
+        if (num < 7) {
+          return 'many';
+        }
+        return 'other';
+      },
+      half_a_minute: 'half a minute',
+      less_than_x_seconds: {
+        one: 'less than 1 second',
+        other: 'less than %{count} seconds'
+      },
+      x_seconds: {
+        // This pluralization function overrides the global one
+        pluralization: function(num) {
+          return(num == 2 ? 'couple' : 'other');
+        },
+        one: '1 second',
+        other: '%{count} seconds'
+      },
+      less_than_x_minutes: {
+        one: 'less than a minute',
+        other: 'less than %{count} minutes'
+      },
+      x_minutes: {
+        one: '1 minute',
+        couple: 'a couple of minutes',
+        other: '%{count} minutes'
+      },
+      about_x_hours: {
+        one: 'about 1 hour',
+        other: 'about %{count} hours'
+      },
+      x_hours: {
+        one: '1 hour',
+        other: '%{count} hours'
+      },
+      x_days: {
+        one: '1 day',
+        other: '%{count} days'
+      },
+      x_months: {
+        one: '1 month',
+        other: '%{count} months'
+      },
+      about_x_years: {
+        one: 'about 1 year',
+        other: 'about %{count} years'
+      },
+      over_x_years: {
+        one: 'over 1 year',
+        other: 'over %{count} years'
+      },
+      almost_x_years: {
+        one: 'almost 1 year',
+        other: 'almost %{count} years'
+      },
+      x_years: {
+        one: '1 year',
+        other: '%{count} years'
+      },
+      words_connector: ', ',
+      two_words_connector: ' and ',
+      last_word_connector: ', and '
+    }
+
+
+
+Not yet implemented
+-------------------
+Currently there are some features of the dotiw Gem that are not implented in
+this Javascript equivalent.  The following functions/features/options are
+currently under development:
+1. No support for the 'vague' option.
+2. No support for the 'accumulate_on' option
+3. Does not support month or years output in the string
+4. The function distance_of_time_in_percent is unavailable
