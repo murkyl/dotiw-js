@@ -359,7 +359,5 @@ Not yet implemented
 Currently there are some features of the dotiw Gem that are not implented in
 this Javascript equivalent.  The following functions/features/options are
 currently under development:
-1. No support for the 'vague' option.
-2. No support for the 'accumulate_on' option
-3. Does not support month or years output in the string
-4. The function distance_of_time_in_percent is unavailable
+1. Does not support month or years output in the string
+2. The function distance_of_time_in_percent is unavailable
