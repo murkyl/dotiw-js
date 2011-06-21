@@ -29,12 +29,14 @@ DOTIW.distance_of_time_in_words(t, t + 98900)
 distance_of_time_in_words(start_time, end_time, show_seconds, options)
 ----
 *Description*
+
 This function can be used to convert a time difference between start_time and
 end_time into a string representation that is much more human friendly than
 just providing the raw difference in seconds through a subtraction.
 
 
 *Arguments*
+
 +start_time+: Javascript Date object or an integer representing seconds
 
 +end_time+: Javascript Date object or an integer representing seconds
@@ -54,6 +56,7 @@ show_seconds parameters altogether.
 
 
 *Return values*
+
 String with the time value
 
 
@@ -72,16 +75,19 @@ var time = DOTIW.distance_of_time_in_words_hash(now, now + 834500);
 distance_of_time_in_words_hash(start_time, end_time, show_seconds, options)
 ----
 *Description*
+
 Similar to the distance_of_time_in_words function except that the output can
 be used to output the time difference in any manner you prefer.  The hash keys
 will be from the set: seconds, minutes, hours, days, months and years.
 
 
 *Arguments*
+
 The arguments for this function are identical to distance_of_time_in_words.
 
 
 *Return values*
+
 A hash of each of the time components.
 
 
@@ -102,11 +108,13 @@ hash_time.days;             // Returns undefined
 distance_of_time(seconds, options)
 ----
 *Description*
+
 This function takes an integer number of seconds and converts it into a nice
 string.
 
 
 *Arguments*
+
 +seconds+: Integer value representing the number of seconds.
 
 +options+: Hash that contains various options that alter how the time string
@@ -115,6 +123,7 @@ options and their behaviors.
   
 
 *Return values*
+
 String with the time value
 
 
@@ -132,10 +141,12 @@ var time = DOTIW.distance_of_time(3840)
 distance_of_time_in_percent(start_time, current_time, end_time, options)
 ----
 *Description*
+
 Currently not implemented
 
 
 *Arguments*
+
 +start_time+: Javascript Date object or an integer representing seconds
 
 +current_time+: Javascript Date object or an integer representing seconds
@@ -151,6 +162,7 @@ options and their behaviors.
 
 
 *Return values*
+
 String with the percent value
 
 
@@ -160,10 +172,12 @@ String with the percent value
 load_locale(locale_string, translation)
 ----
 *Description*
+
 You can use this function to pre-load locale definitions.
 
 
 *Arguments*
+
 +locale_string+: A text string representing a locale.  e.g. 'en-GB', 'zh-CN'
 
 +translation+: This parameter must be a hash.  There are 2 types of hashes
