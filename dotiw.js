@@ -26,7 +26,7 @@
 //    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 var DOTIW = {
-  version: '0.1.0',
+  version: '0.2.0',
   locale: {
     'en-US': {
       half_a_minute: 'half a minute',
@@ -84,6 +84,18 @@ var DOTIW = {
       last_word_connector: ', and '
     }
   },
+  days: function(num) {
+    return num*86400;
+  },
+  hours: function(num) {
+    return num*3600;
+  },
+  minutes: function(num) {
+    return num*60;
+  },
+  seconds: function(num) {
+    return num;
+  },
   load_locale: function(lang, translation) {
     if (typeof (translation[lang]) == 'undefined') {
       // Assume we are just given a straight hash
@@ -114,7 +126,7 @@ var DOTIW = {
     for (var i = 0; i < time_hash.order.length; i++) {
       time_arr.push(time_hash[time_hash.order[i]]);
     }
-    // Output text here by joning the array parts
+    // Output text here by joining the array parts
     if (time_arr.length == 2) {
       time_str  = time_arr.join(this._locale.two_words_connector);
     }
@@ -136,8 +148,8 @@ var DOTIW = {
     }
     var ops = jQuery.extend({
       locale: 'en-US',
-      vague: false,       // Not implemented
-      accumulate_on: null,// Not implemented
+      vague: false,
+      accumulate_on: null,
       only: null,
       except: null,
       words_connector: null,
@@ -172,46 +184,132 @@ var DOTIW = {
       order: []
     };
     var skip      = false;
+    var acc       = typeof(ops.accumulate_on) == 'string' ? true : false;
     var neg_time  = start > end;
     var diff      = neg_time ? start - end : end - start;
 
-    if (!skip) {
-      days    = Math.floor(diff/86400);
-      diff    -= days*86400;
-      if (days > 0 && this._only('days', ops) && this._except('days', ops)) {
-        time_hash.days  = this._time_string('x_days', days);
-        time_hash.order.push('days');
+    if (ops.vague) {
+      // The traditional Rails distance_of_time_in_words processing is this branch
+      minutes = Math.round(diff/60.0);
+      if (minutes >= 0 && minutes < 2) {
+        if (show_seconds) {
+          if (diff < 5) {
+            time_hash.seconds = this._time_string('less_than_x_seconds', 5);
+            time_hash.order.push('seconds');
+          }
+          else if (diff < 10) {
+            time_hash.seconds = this._time_string('less_than_x_seconds', 10);
+            time_hash.order.push('seconds');
+          }
+          else if (diff < 20) {
+            time_hash.seconds = this._time_string('less_than_x_seconds', 20);
+            time_hash.order.push('seconds');
+          }
+          else if (diff < 40) {
+            time_hash.seconds = this._time_string('half_a_minute', 1);
+            time_hash.order.push('minutes');
+          }
+          else if (diff < 60) {
+            time_hash.minutes = this._time_string('less_than_x_minutes', 1);
+            time_hash.order.push('minutes');
+          }
+          else {
+            time_hash.minutes = this._time_string('x_minutes', 1);
+            time_hash.order.push('minutes');
+          }
+        }
+        else {
+          time_hash.minutes = this._time_string((minutes == 0) ? 'less_than_x_minutes' : 'x_minutes', 1);
+          time_hash.order.push('minutes');
+        }
       }
-      skip    = ops.highest_measure_only;
-    }
-    if (!skip) {
-      hours   = Math.floor(diff/3600);
-      diff    -= hours*3600;
-      if (hours > 0 && this._only('hours', ops) && this._except('hours', ops)) {
-        time_hash.hours  = this._time_string('x_hours', hours);
-        time_hash.order.push('hours');
-      }
-      skip    = ops.highest_measure_only;
-    }
-    if (!skip) {
-      minutes = Math.floor(diff/60);
-      diff    -= minutes*60;
-      if (minutes > 0 && this._only('minutes', ops) && this._except('minutes', ops)) {
+      else if (minutes > 1 && minutes < 45) {
         time_hash.minutes = this._time_string('x_minutes', minutes);
         time_hash.order.push('minutes');
       }
-      skip    = ops.highest_measure_only;
-    }
-    if (!skip) {
-      seconds = diff;
-      if (show_seconds && this._only('seconds', ops) && this._except('seconds', ops)) {
-        time_hash.seconds = this._time_string('x_seconds', seconds);
-        time_hash.order.push('seconds');
+      else if (minutes > 44 && minutes < 90) {
+        time_hash.hours  = this._time_string('about_x_hours', 1);
+        time_hash.order.push('hours');
+      }
+      else if (minutes > 89 && minutes < 1440) {
+        time_hash.hours  = this._time_string('about_x_hours', Math.round(minutes/60.0));
+        time_hash.order.push('hours');
+      }
+      else if (minutes > 1439 && minutes < 2530) {
+        time_hash.days  = this._time_string('x_days', 1);
+        time_hash.order.push('days');
+      }
+      else if (minutes > 2529 && minutes < 43200) {
+        time_hash.days  = this._time_string('x_days', Math.round(minutes/1440.0));
+        time_hash.order.push('days');
+      }
+      else if (minutes > 43199 && minutes < 86400) {
+        time_hash.days  = this._time_string('about_x_months', 1);
+        time_hash.order.push('months');
+      }
+      else if (minutes > 86399 && minutes < 525600) {
+        time_hash.days  = this._time_string('x_months', Math.round(minutes/43200.0));
+        time_hash.order.push('months');
+      }
+      else {
+        years = Math.floor(minutes/525600);
+        var leap_offset = (years/4)*1440;
+        var remainder   = (minutes - leap_offset)%525600;
+        if (remainder < 131400) {
+          time_hash.years = this._time_string('about_x_years', years);
+        }
+        else if (remainder < 394200) {
+          time_hash.years = this._time_string('over_x_years', years);
+        }
+        else {
+          time_hash.years = this._time_string('almost_x_years', years + 1);
+        }
+        time_hash.order.push('years');
       }
     }
+    else {
+      // The newer precise processing based on dotiw on Github is this branch
+      if (!skip && !(acc && ops.accumulate_on != 'days')) {
+        days    = Math.floor(diff/86400);
+        diff    -= days*86400;
+        if (days > 0 && this._only('days', ops) && this._except('days', ops)) {
+          time_hash.days  = this._time_string('x_days', days);
+          time_hash.order.push('days');
+        }
+        skip    = ops.highest_measure_only && days > 0 ? true : false;
+        acc     = false;
+      }
+      if (!skip && !(acc && ops.accumulate_on != 'hours')) {
+        hours   = Math.floor(diff/3600);
+        diff    -= hours*3600;
+        if (hours > 0 && this._only('hours', ops) && this._except('hours', ops)) {
+          time_hash.hours  = this._time_string('x_hours', hours);
+          time_hash.order.push('hours');
+        }
+        skip    = ops.highest_measure_only && hours > 0 ? true : false;
+        acc     = false;
+      }
+      if (!skip && !(acc && ops.accumulate_on != 'minutes')) {
+        minutes = Math.floor(diff/60);
+        diff    -= minutes*60;
+        if (minutes > 0 && this._only('minutes', ops) && this._except('minutes', ops)) {
+          time_hash.minutes = this._time_string('x_minutes', minutes);
+          time_hash.order.push('minutes');
+        }
+        skip    = ops.highest_measure_only && minutes > 0 ? true : false;
+        acc     = false;
+      }
+      if (!skip && !(acc && ops.accumulate_on != 'seconds')) {
+        seconds = diff;
+        if (show_seconds && this._only('seconds', ops) && this._except('seconds', ops)) {
+          time_hash.seconds = this._time_string('x_seconds', seconds);
+          time_hash.order.push('seconds');
+        }
+      }
 
-    if (time_hash.order.length == 0) {
-      time_hash.order.push(this._time_string('x_seconds', 1));
+      if (time_hash.order.length == 0) {
+        time_hash.order.push(this._time_string('x_seconds', 1));
+      }
     }
     return time_hash;
   },
@@ -248,9 +346,13 @@ var DOTIW = {
         key = 'other';
       }
     }
+
+    if (typeof(this._locale[type]) == 'string') {
+      return (this._locale[type].replace(/%{count}/, time));
+    }
     // In case the pluralization gives us a key that does not exist we will
     // default to key 'other'
-    if (typeof (this._locale[type][key]) == 'undefined') {
+    if (typeof(this._locale[type][key]) == 'undefined') {
       key = 'other';
     }
     return (this._locale[type][key]).replace(/%{count}/, time);

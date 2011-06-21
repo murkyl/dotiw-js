@@ -180,7 +180,8 @@ _Default_: 'en-US'
 
 Set this to a text string which represents a locale that has been entered via
 the load_locale method or directly send in a hash of the locale as described
-in the localization section.
+in the localization section.  When you use a direct hash you can re-use the
+locale data in subsequent requests by using the locale 'inline'.
 
 
 ###vague
@@ -188,9 +189,7 @@ _Type_: Boolean
 
 _Default_: false
 
-Set this to true if you want traditional Rails vague times like about 1 hour.
-
-Currently not implemented.
+Set this to true if you want traditional Rails vague times like 'about 1 hour'.
 
 
 ###accumulate_on
@@ -200,8 +199,6 @@ _Default_: false
 
 Specifies the largest time bucket that will be output.  This option allows you
 to have an output like hours be greater than the normal range of 0-23.
-
-Currently not implemented.
 
 
 ###only
