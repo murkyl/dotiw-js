@@ -1,4 +1,4 @@
-//    dotiw.js 0.2.3
+//    dotiw.js 0.2.4
 //    Copyright (c) 2011 Andrew Chung, 3Bengals Inc.
 //    Last modified: 2011-06-19
 //    dotiw is freely distributable under the MIT license. (http://www.opensource.org/licenses/mit-license.php)
@@ -26,7 +26,7 @@
 //    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 var DOTIW = {
-  version: '0.2.3',
+  version: '0.2.4',
   locale: {
     'en-US': {
       half_a_minute: 'half a minute',
@@ -159,10 +159,10 @@ var DOTIW = {
     }, ops_hash);
 
     // Fix up the ops hash to reasonable values
-    if (typeof(start) != 'number') {
+    if (start.getTime) {
       start = Math.floor(start.getTime()/1000);
     }
-    if (typeof(end) != 'number') {
+    if (end.getTime) {
       end   = Math.floor(end.getTime()/1000);
     }
     this._locale = this._build_locale(ops);

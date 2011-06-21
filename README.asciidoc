@@ -3,7 +3,7 @@ dotiw-js
 :Author: Andrew Chung, 3Bengals Inc.
 :Email: Andrew Chung <andrew.chung@3bengals.com>
 :Date: 2011-06-20
-:Revision: 0.2.3
+:Revision: 0.2.4
 
 This javascript code attempts to mirror the functionality available in both
 Rails link:http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-distance_of_time_in_words[distance_of_time_in_words]
