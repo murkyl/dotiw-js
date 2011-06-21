@@ -12,7 +12,7 @@ Most of the options and syntax from the Rails functions are closely mirrored
 here.  Definitely take a look at the link:https://github.com/radar/dotiw[dotiw Gem documentation]
 for additional clarification.
 
-.Example
+*Example*
 ----
 t = new Date()
 DOTIW.distance_of_time_in_words(t, t+ 60)
@@ -28,21 +28,21 @@ DOTIW.distance_of_time_in_words(t, t + 98900)
 ----
 distance_of_time_in_words(start_time, end_time, show_seconds, options)
 ----
-.Description
+*Description*
 This function can be used to convert a time difference between start_time and
 end_time into a string representation that is much more human friendly than
 just providing the raw difference in seconds through a subtraction.
 
 
-.Arguments
-*start_time*: Javascript Date object or an integer representing seconds
+*Arguments*
++start_time+: Javascript Date object or an integer representing seconds
 
-*end_time*: Javascript Date object or an integer representing seconds
++end_time+: Javascript Date object or an integer representing seconds
 
-*show_seconds*: Boolean value.  Defaults to false.  When set to true the
++show_seconds+: Boolean value.  Defaults to false.  When set to true the
 function will return the time string including seconds.
 
-*options*: Hash that contains various options that alter how the time string
++options+: Hash that contains various options that alter how the time string
 is returned.  Please see the options section below for details on all the
 options and their behaviors.
 
@@ -53,11 +53,11 @@ show_seconds parameters altogether.
 ==========
 
 
-.Return values
+*Return values*
 String with the time value
 
 
-.Example
+*Example*
 ----
 var now = new Date();
 var time = DOTIW.distance_of_time_in_words_hash(now, now + 834500);
@@ -71,21 +71,21 @@ var time = DOTIW.distance_of_time_in_words_hash(now, now + 834500);
 ----
 distance_of_time_in_words_hash(start_time, end_time, show_seconds, options)
 ----
-.Description
+*Description*
 Similar to the distance_of_time_in_words function except that the output can
 be used to output the time difference in any manner you prefer.  The hash keys
 will be from the set: seconds, minutes, hours, days, months and years.
 
 
-.Arguments
+*Arguments*
 The arguments for this function are identical to distance_of_time_in_words.
 
 
-.Return values
+*Return values*
 A hash of each of the time components.
 
 
-.Example
+*Example*
 ----
 var now = new Date();
 var hash_time = DOTIW.distance_of_time_in_words_hash(now, now + 3960);
@@ -101,24 +101,24 @@ hash_time.days;             // Returns undefined
 ----
 distance_of_time(seconds, options)
 ----
-.Description
+*Description*
 This function takes an integer number of seconds and converts it into a nice
 string.
 
 
-.Arguments
-*seconds*: Integer value representing the number of seconds.
+*Arguments*
++seconds+: Integer value representing the number of seconds.
 
-*options*: Hash that contains various options that alter how the time string
++options+: Hash that contains various options that alter how the time string
 is returned.  Please see the options section below for details on all the
 options and their behaviors.
   
 
-.Return values
+*Return values*
 String with the time value
 
 
-.Example
+*Example*
 ----
 var time = DOTIW.distance_of_time(3840)
 
@@ -131,26 +131,26 @@ var time = DOTIW.distance_of_time(3840)
 ----
 distance_of_time_in_percent(start_time, current_time, end_time, options)
 ----
-.Description
+*Description*
 Currently not implemented
 
 
-.Arguments
-*start_time*: Javascript Date object or an integer representing seconds
+*Arguments*
++start_time+: Javascript Date object or an integer representing seconds
 
-*current_time*: Javascript Date object or an integer representing seconds
++current_time+: Javascript Date object or an integer representing seconds
 
-*end_time*: Javascript Date object or an integer representing seconds
++end_time+: Javascript Date object or an integer representing seconds
 
-*show_seconds*: Boolean value.  Defaults to false.  When set to true the
++show_seconds+: Boolean value.  Defaults to false.  When set to true the
 function will return the time string including seconds.
 
-*options*: Hash that contains various options that alter how the time string
++options+: Hash that contains various options that alter how the time string
 is returned.  Please see the options section below for details on all the
 options and their behaviors.
 
 
-.Return values
+*Return values*
 String with the percent value
 
 
@@ -159,14 +159,14 @@ String with the percent value
 ----
 load_locale(locale_string, translation)
 ----
-.Description
+*Description*
 You can use this function to pre-load locale definitions.
 
 
-.Arguments
-*locale_string*: A text string representing a locale.  e.g. 'en-GB', 'zh-CN'
+*Arguments*
++locale_string+: A text string representing a locale.  e.g. 'en-GB', 'zh-CN'
 
-*translation*: This parameter must be a hash.  There are 2 types of hashes
++translation+: This parameter must be a hash.  There are 2 types of hashes
 that are acceptable.  The first one is a hash with keys that are similar
 to a [Rails I18N Yaml files](https://github.com/svenfuchs/rails-i18n).
 There are some changes for simplicity.  The second type of hash is one where
@@ -176,16 +176,16 @@ of this hash is the built in 'en-US' locale built into the code.  More details
 on how the hash is setup is in the locale section below.
 
 
-.Return values
+*Return values*
 None.
 
 
 
 == Main options
 === locale
-*Type*: String
++Type+: String
 
-*Default*: 'en-US'
++Default+: 'en-US'
 
 Set this to a text string which represents a locale that has been entered via
 the load_locale method or directly send in a hash of the locale as described
@@ -194,69 +194,69 @@ locale data in subsequent requests by using the locale 'inline'.
 
 
 === vague
-*Type*: Boolean
++Type+: Boolean
 
-*Default*: false
++Default+: false
 
 Set this to true if you want traditional Rails vague times like 'about 1 hour'.
 
 
 === accumulate_on
-*Type*: Boolean
++Type+: Boolean
 
-*Default*: false
++Default+: false
 
 Specifies the largest time bucket that will be output.  This option allows you
 to have an output like hours be greater than the normal range of 0-23.
 
 
 === only
-*Type*: String or Array
++Type+: String or Array
 
-*Default*: null
++Default+: null
 
 When set, to a strings or array of string, this option will filter the output
 such that only the time buckets set will be output.
 
 
 === except
-*Type*: String or Array
++Type+: String or Array
 
-*Default*: null
++Default+: null
 
 When set, to a strings or array of string, this option will filter the output
 such that only the time buckets set will not be output.
 
 
 === words_connector
-*Type*: String
++Type+: String
 
-*Default*: ', '
++Default+: ', '
 
 String used to connect 3 or more time buckets together.
 
 
 === two_words_connector
-*Type*: String
++Type+: String
 
-*Default*: ' and '
++Default+: ' and '
 
 String used to connect the words when only 2 time buckets will be output.
 
 
 === last_word_connector
-*Type*: String
++Type+: String
 
-*Default*: ', and '
++Default+: ', and '
 
 String used to connect the last bucket when you have 3 or more buckets
 together.
 
 
 === highest_measure_only
-*Type*: Boolean
++Type+: Boolean
 
-*Default*: false
++Default+: false
 
 When set to true, only the largest time bucket will be output.
 
@@ -280,7 +280,7 @@ hash or inside any of the subsections.  When it appears at the base it wil be
 used for all the subsections.  If it appears in a subsection it will work only
 in that subsection and it will also override any global value.
 
-.Example
+*Example*
 ----
 {
   pluralization: function(num) {
