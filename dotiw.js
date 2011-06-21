@@ -1,4 +1,4 @@
-//    dotiw.js 0.2.1
+//    dotiw.js 0.2.3
 //    Copyright (c) 2011 Andrew Chung, 3Bengals Inc.
 //    Last modified: 2011-06-19
 //    dotiw is freely distributable under the MIT license. (http://www.opensource.org/licenses/mit-license.php)
@@ -26,7 +26,7 @@
 //    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 var DOTIW = {
-  version: '0.2.1',
+  version: '0.2.3',
   locale: {
     'en-US': {
       half_a_minute: 'half a minute',
@@ -112,7 +112,7 @@ var DOTIW = {
     return time_hash;
   },
   distance_of_time: function(seconds, ops_hash) {
-    return distance_of_time_in_words(0, seconds, ops_hash);
+    return this.distance_of_time_in_words(0, seconds, ops_hash);
   },
   // Not implemented
   //distance_of_time_in_percent: function(start, now, end, ops_hash) {
@@ -159,10 +159,10 @@ var DOTIW = {
     }, ops_hash);
 
     // Fix up the ops hash to reasonable values
-    if (!typeof(start) == 'number') {
+    if (typeof(start) != 'number') {
       start = Math.floor(start.getTime()/1000);
     }
-    if (!typeof(end) == 'number') {
+    if (typeof(end) != 'number') {
       end   = Math.floor(end.getTime()/1000);
     }
     this._locale = this._build_locale(ops);
