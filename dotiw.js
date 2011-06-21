@@ -1,4 +1,4 @@
-//    dotiw.js 0.1.0
+//    dotiw.js 0.2.0
 //    Copyright (c) 2011 Andrew Chung, 3Bengals Inc.
 //    Last modified: 2011-06-19
 //    dotiw is freely distributable under the MIT license. (http://www.opensource.org/licenses/mit-license.php)
