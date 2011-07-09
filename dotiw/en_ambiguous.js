@@ -69,6 +69,10 @@ var DOTIW_EN_AMBIGUOUS = {
       many: 'many months',
       other: '%{count} months'
     },
+    about_x_months: {
+      one: 'about 1 month',
+      other: 'about %{count} months'
+    },
     about_x_years: {
       one: 'about 1 year',
       other: 'about %{count} years'

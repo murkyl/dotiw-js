@@ -1,9 +1,9 @@
-dotiw-js
+3B-dotiw-js
 ========
 :Author: Andrew Chung, 3Bengals Inc.
 :Email: Andrew Chung <andrew.chung@3bengals.com>
-:Date: 2011-06-20
-:Revision: 0.2.4
+:Date: 2011-07-08
+:Revision: 0.3.0
 
 This javascript code attempts to mirror the functionality available in both
 Rails link:http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-distance_of_time_in_words[distance_of_time_in_words]
@@ -15,10 +15,10 @@ for additional clarification.
 *Example*
 ----
 t = new Date()
-DOTIW.distance_of_time_in_words(t, t+ 60)
-DOTIW.distance_of_time_in_words(t, t+ 3600)
-DOTIW.distance_of_time_in_words(t, t + 3820)
-DOTIW.distance_of_time_in_words(t, t + 98900)
+threeB.DOTIW.distance_of_time_in_words(t, t+ 60)
+threeB.DOTIW.distance_of_time_in_words(t, t+ 3600)
+threeB.DOTIW.distance_of_time_in_words(t, t + 3820)
+threeB.DOTIW.distance_of_time_in_words(t, t + 98900)
 ----
 
 
@@ -63,7 +63,7 @@ String with the time value
 *Example*
 ----
 var now = new Date();
-var time = DOTIW.distance_of_time_in_words_hash(now, now + 834500);
+var time = threeB.DOTIW.distance_of_time_in_words_hash(now, now + 834500);
 
 // Time would be: "9 days, 15 hours, and 48 minutes"
 ----
@@ -94,7 +94,7 @@ A hash of each of the time components.
 *Example*
 ----
 var now = new Date();
-var hash_time = DOTIW.distance_of_time_in_words_hash(now, now + 3960);
+var hash_time = threeB.DOTIW.distance_of_time_in_words_hash(now, now + 3960);
 hash_time.hours;            // Returns 1
 hash_time['hours'];         // Returns 1
 hash_time.minutes;          // Returns 6
@@ -129,7 +129,7 @@ String with the time value
 
 *Example*
 ----
-var time = DOTIW.distance_of_time(3840)
+var time = threeB.DOTIW.distance_of_time(3840)
 
 // Time would be "1 hour and 4 minutes"
 ----
@@ -291,7 +291,7 @@ If you have need for customized pluralizations you can add a key with the
 value 'pluralization' and associate it with an anonymous function which takes
 an integer input and returns a string key value which will be used to map that
 particular value.  This pluralization function can appear at the base of the
-hash or inside any of the subsections.  When it appears at the base it wil be
+hash or inside any of the subsections.  When it appears at the base it will be
 used for all the subsections.  If it appears in a subsection it will work only
 in that subsection and it will also override any global value.
 
