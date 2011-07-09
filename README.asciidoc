@@ -380,5 +380,6 @@ in that subsection and it will also override any global value.
 Currently there are some features of the dotiw Gem that are not implented in
 this Javascript equivalent.  The following functions/features/options are
 currently under development:
+
 * Does not support month or years output in the string
 * The function distance_of_time_in_percent is unavailable
