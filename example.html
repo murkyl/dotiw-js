@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>3B-dotiw.js</title>
+    <script type="text/javascript" src="3B-dotiw.js"></script>
+    <style type="text/css">
+      samp {display: block; margin: 10px; padding: 10px; background-color: #EEE; border: 1px solid #000; width: 800px;}
+    </style>
+  </head>
+  <body>
+    <h1>Example usage of 3B-dotiw.js</h1>
+    <h2>Distance of time in words</h2>
+    <samp>
+      threeB.DOTIW.distance_of_time_in_words(0, 500);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 500));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 800);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 800));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 50000);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 50000));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 500);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 500));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 500);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 500));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 3463212, true);<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 3463212, true));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 3463212, true, {vague: true});<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(0, 3463212, true, {'vague': true}));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 3463212, {locale: {'x_hours': {'other': 'some hours'}}}));<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(
+        0, 3463212, {
+          locale: {'x_hours':
+              {'other': 'some hours'}
+          }
+        }));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 3463212, true, {locale: {'x_hours': {'other': 'some hours'}}}));<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(
+        0, 3463212, true, {
+          locale: {'x_hours':
+              {'other': 'some hours'}
+          }
+        }));</script><br /><br />
+      threeB.DOTIW.distance_of_time_in_words(0, 3463212, true, {<br />
+      &nbsp;&nbsp;locale: {'x_hours':<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;{'lots': 'a whole lot of hours',<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pluralization': function(i) { return 'lots'; }<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;}<br />
+      }));<br />
+      // Result: <script type="text/javascript">document.write(threeB.DOTIW.distance_of_time_in_words(
+        0, 3463212, true, {
+          locale: {'x_hours':
+              {'lots': 'a whole lot of hours',
+              'pluralization': function(i) { return 'lots'; }
+            }
+          }
+        }));</script><br /><br />
+    </samp>
+
+  </body>
+</html>
